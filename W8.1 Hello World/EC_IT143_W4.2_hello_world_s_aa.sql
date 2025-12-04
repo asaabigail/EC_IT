@@ -1,71 +1,58 @@
 /* 
     EC_IT143_W4.2_hello_world_s1_aa.sql
-    Step 1 ñ Start with a Question
+    Step 1 ‚Äì Start with a Question
     Author: Alfred Somina Abigail
 */
-
+SELECT 'Hello World' AS MESSage
 -- Simple Question:
 -- "Can SQL Server return the phrase 'Hello World'?"
-
-SELECT 'Hello World' AS Message;
 /* 
     EC_IT143_W4.2_hello_world_s2_aa.sql
-    Step 2 ñ Begin Creating an Answer
+    Step 2 ‚Äì Begin Creating an Answer
     Author: Alfred Somina Abigail
 */
 
--- Step 1 of the answer:
--- SQL can return a text string using a SELECT statement.
-
-SELECT 'Hello World' AS Message;
+SELECT 'Hello World' AS Message
 
 -- Step 2 of the answer:
 -- The next logical step is to place this logic into a database object (a View).
 /* 
     EC_IT143_W4.2_hello_world_s3_aa.sql
-    Step 3 ñ Create Ad Hoc Query
+    Step 3 ‚Äì Create Ad Hoc Query
     Author: Alfred Somina Abigail
 */
 
--- Ad hoc query for ìHello Worldî
+-- Ad hoc query for ‚ÄúHello World‚Äù
 SELECT 'Hello World' AS Message;/*
     EC_IT143_W4.2_hello_world_s4_aa.sql
-    Step 4 ñ Create View
+    Step 4 ‚Äì Create View
     Author: Alfred Somina Abigail
 */
-
 USE EC_IT143_DA;
-
 IF OBJECT_ID('vw_hello_world', 'V') IS NOT NULL
     DROP VIEW vw_hello_world;
-
 CREATE VIEW vw_hello_world AS
 SELECT 
     'Hello World' AS Message;
     /*
     EC_IT143_W4.2_hello_world_s5.1_aa.sql
-    Step 5.1 ñ Create Table using SELECT INTO
+    Step 5.1 ‚Äì Create Table using SELECT INTO
     Author: Alfred Somina Abigail
 */
-
 USE EC_IT143_DA;
-
 -- Create table from view
 SELECT *
 INTO hello_world_table
 FROM vw_hello_world;
 /*
     EC_IT143_W4.2_hello_world_s5.2_aa.sql
-    Step 5.2 ñ Refine Table Definition
+    Step 5.2 ‚Äì Refine Table Definition
     Author: Alfred Somina Abigail
 */
-
 USE EC_IT143_DA;
-
 -- Drop the table to refine the structure
 IF OBJECT_ID('hello_world_table', 'U') IS NOT NULL
     DROP TABLE hello_world_table;
-
 -- Recreate table manually with better structure
 CREATE TABLE hello_world_table (
     id INT IDENTITY(1,1) PRIMARY KEY,
@@ -73,23 +60,19 @@ CREATE TABLE hello_world_table (
 );
 /*
     EC_IT143_W4.2_hello_world_s6_aa.sql
-    Step 6 ñ Load Table From View
+    Step 6 ‚Äì Load Table From View
     Author: Alfred Somina Abigail
 */
-
 USE EC_IT143_DA;
-
 TRUNCATE TABLE hello_world_table;
-
 INSERT INTO hello_world_table (Message)
 SELECT Message
 FROM vw_hello_world;
 /*
     EC_IT143_W4.2_hello_world_s7_aa.sql
-    Step 7 ñ Stored Procedure
+    Step 7 ‚Äì Stored Procedure
     Author: Alfred Somina Abigail
 */
-
 USE EC_IT143_DA;
 
 IF OBJECT_ID('sp_load_hello_world', 'P') IS NOT NULL
@@ -105,16 +88,13 @@ BEGIN
     INSERT INTO hello_world_table (Message)
     SELECT Message
     FROM vw_hello_world;
-
-END;
 /*
     EC_IT143_W4.2_hello_world_s8_aa.sql
-    Step 8 ñ Call Stored Procedure
+    Step 8 ‚Äì Call Stored Procedure
     Author: Alfred Somina Abigail
 */
 
 USE EC_IT143_DA;
-GO
 
 EXEC sp_load_hello_world;
 
